@@ -3,31 +3,41 @@ package se327;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class CalculatorTest {
+class CalculatorTest {
 
     @Test
-    public void testAdd() {
+    void testAdd() {
         Calculator calculator = new Calculator();
         assertEquals(5, calculator.add(2, 3));
     }
 
     @Test
-    public void testSubtract() {
+    void testSubtract() {
         Calculator calculator = new Calculator();
         assertEquals(1, calculator.subtract(5, 4));
     }
 
     @Test
-    public void testMultiply() {
+    void testMultiply() {
         Calculator calculator = new Calculator();
         assertEquals(6, calculator.multiply(2, 3));
     }
 
     @Test
-    public void testDivide() {
+    void testDivide() {
         Calculator calculator = new Calculator();
         assertEquals(2.0, calculator.divide(4, 2), 0.01);
     }
 
+    @Test
+    void testThrowException() {
+        Calculator calculator = new Calculator();
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            calculator.divide(3, 0);
+        });
+
+        assertEquals("Division by zero is not allowed.", exception.getMessage());
+    }
 }
